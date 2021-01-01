@@ -1,4 +1,11 @@
-with (import <nixpkgs> { });
+{ stdenv
+, fetchFromGitHub
+, makeWrapper
+, mkYarnPackage
+, nodejs-14_x
+, workadventure-messages
+, yarn2nix-moretea
+, ... }:
 
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "workadventureuploader";

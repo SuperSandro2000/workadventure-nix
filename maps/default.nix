@@ -1,4 +1,8 @@
-with (import <nixpkgs> { });
+{ stdenv
+, fetchFromGitHub
+, makeWrapper
+, yarn2nix-moretea
+, ... }:
 
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "workadventuremaps";

@@ -1,6 +1,9 @@
-with (import <nixpkgs> { }); let
-  workadventure-messages = import ../messages;
-in
+{ stdenv
+, fetchFromGitHub
+, makeWrapper
+, workadventure-messages
+, yarn2nix-moretea
+, ... }:
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "workadventurefront";
   version = "unstable";
