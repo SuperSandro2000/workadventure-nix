@@ -1,27 +1,5 @@
 with (import <nixpkgs> { }); let
-
   workadventure-messages = import ../messages;
-
-  # node-abi = "83";
-
-  # node-grpc-precompiled = pkgs.fetchzip {
-  #   name = "node-grpc-precompiled-node-${node-abi}";
-  #   url = "https://node-precompiled-binaries.grpc.io/grpc/v1.24.4/node-v${node-abi}-linux-x64-glibc.tar.gz";
-  #   sha256 = "119rhhk1jpi2vwyim7byq3agacasc4q25c26wyzfmy8vk2ih6ndj";
-  # };
-
-  # node-grpc-patched = pkgs.stdenv.mkDerivation {
-  #   name = "node-grpc";
-  #   buildInputs = [ stdenv.cc.cc ];
-  #   nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-  #   dontUnpack = true;
-  #   # spams console
-  #   dontStrip = true;
-  #   installPhase = ''
-  #     install -D -m755 ${node-grpc-precompiled}/grpc_node.node $out/bin/grpc_node.node
-  #   '';
-  # };
-
 in
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "workadventurefront";
@@ -39,14 +17,6 @@ yarn2nix-moretea.mkYarnPackage rec {
   yarnNix = ./yarn.nix;
 
   nativeBuildInputs = [ makeWrapper ];
-
-  # pkgConfig = {
-  #   grpc = {
-  #     postInstall = ''
-  #       install -D -m755 ${node-grpc-patched}/bin/grpc_node.node src/node/extension_binary/node-v${node-abi}-linux-x64-glibc/grpc_node.node
-  #     '';
-  #   };
-  # };
 
   dontStrip = true;
 
