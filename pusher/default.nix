@@ -1,18 +1,29 @@
-with (import <nixpkgs> { }); let
-  workadventure-messages = import ../messages;
+{ stdenv
+, autoPatchelfHook
+, makeWrapper
 
+, fetchzip
+, fetchFromGitHub
+
+, nodejs-14_x
+, yarn2nix-moretea
+
+, workadventure-messages
+}:
+
+let
   node-abi = "83";
 
-  node-grpc-precompiled = pkgs.fetchzip {
+  node-grpc-precompiled = fetchzip {
     name = "node-grpc-precompiled-node-${node-abi}";
     url = "https://node-precompiled-binaries.grpc.io/grpc/v1.24.4/node-v${node-abi}-linux-x64-glibc.tar.gz";
     sha256 = "119rhhk1jpi2vwyim7byq3agacasc4q25c26wyzfmy8vk2ih6ndj";
   };
 
-  node-grpc-patched = pkgs.stdenv.mkDerivation {
+  node-grpc-patched = stdenv.mkDerivation {
     name = "node-grpc";
     buildInputs = [ stdenv.cc.cc ];
-    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    nativeBuildInputs = [ autoPatchelfHook ];
     dontUnpack = true;
     # spams console
     dontStrip = true;
