@@ -1,7 +1,7 @@
 { stdenv
 , fetchFromGitHub
 , makeWrapper
-, workadventure-messages
+, workadventure
 , yarn2nix-moretea
 , ... }:
 yarn2nix-moretea.mkYarnPackage rec {
@@ -25,7 +25,7 @@ yarn2nix-moretea.mkYarnPackage rec {
 
   buildPhase = ''
     mkdir -p $out
-    ln -s ${workadventure-messages.outPath}/generated deps/${pname}/src/Messages/generated
+    ln -s ${workadventure.messages.outPath}/generated deps/${pname}/src/Messages/generated
     HOME=$TMPDIR yarn --offline run build
     cp -r deps/${pname}/dist/ $out/
   '';

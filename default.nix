@@ -1,11 +1,8 @@
-with import <nixpkgs> {};
-lib.fix (self: let
-  callPackage = lib.callPackageWith self;
-in pkgs // {
-  workadventure-back = callPackage ./back {};
-  workadventure-pusher = callPackage ./pusher {};
-  workadventure-messages = callPackage ./messages {};
-  workadventure-front = callPackage ./front {};
-  workadventure-uploader = callPackage ./uploader {};
-  workadventure-maps = callPackage ./maps {};
-})
+{ system ? builtins.currentSystem, nixpkgs ? <nixpkgs> }:
+
+let
+  pkgs = import nixpkgs { inherit system; overlays = [ (import ./overlay.nix) ]; };
+in {
+  inherit pkgs;
+  inherit (pkgs) workadventure;
+}
