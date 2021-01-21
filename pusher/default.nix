@@ -8,7 +8,7 @@
 , nodejs-14_x
 , yarn2nix-moretea
 
-, workadventure-messages
+, workadventure
 }:
 
 let
@@ -62,7 +62,7 @@ yarn2nix-moretea.mkYarnPackage rec {
 
   buildPhase = ''
     mkdir -p $out
-    ln -s ${workadventure-messages.outPath}/generated deps/workadventureback/src/Messages/generated
+    ln -s ${workadventure.messages.outPath}/generated deps/workadventureback/src/Messages/generated
     HOME=$TMPDIR yarn --offline run tsc
     cp -r deps/workadventureback/dist $out/dist
   '';

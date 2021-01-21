@@ -4,7 +4,7 @@
 , fetchzip
 , makeWrapper
 , nodejs-14_x
-, workadventure-messages
+, workadventure
 , yarn2nix-moretea
 , ... }:
 
@@ -59,7 +59,7 @@ yarn2nix-moretea.mkYarnPackage rec {
 
   buildPhase = ''
     mkdir -p $out
-    ln -s ${workadventure-messages.outPath}/generated deps/${pname}/src/Messages/generated
+    ln -s ${workadventure.messages.outPath}/generated deps/${pname}/src/Messages/generated
     HOME=$TMPDIR yarn --offline run tsc
     cp -r deps/${pname}/dist $out/dist
   '';
